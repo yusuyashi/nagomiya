@@ -11,6 +11,33 @@
   </head>
 
   <body>
+    <header>
+      <% if admin_signed_in? %>
+        <!-- 管理者がログイン後に表示するリンク -->
+        <%= link_to '施術メニューの一覧', your_path_here %>
+        <%= link_to 'セラピスト紹介', your_path_here %>
+        <%= link_to '会員一覧', your_path_here %>
+        <%= link_to '予約履歴一覧', your_path_here %>
+        <%= link_to '口コミ', your_path_here %>
+        <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %>
+      <% elsif customer_signed_in? %>
+        <!-- 顧客がログイン後に表示するリンク -->
+        <%= link_to 'セラピスト紹介', your_path_here %>
+        <%= link_to 'マイページ', your_path_here %>
+        <%= link_to '施術メニューの一覧', your_path_here %>
+        <%= link_to 'ログアウト', destroy_customer_session_path, method: :delete %>
+        <%= link_to '口コミ', your_path_here %>
+      <% else %>
+        <!-- ログイン前に表示するリンク (共通) -->
+        <%= link_to 'セラピスト紹介', your_path_here %>
+        <%= link_to 'About', your_path_here %>
+        <%= link_to '施術メニューの一覧', your_path_here %>
+        <%= link_to '新規登録', new_customer_registration_path %>
+        <%= link_to 'ログイン', new_customer_session_path %>
+        <%= link_to '口コミ', your_path_here %>
+      <% end %>
+    </header>
+    
     <%= yield %>
   </body>
 </html>
