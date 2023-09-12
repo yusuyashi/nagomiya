@@ -1,0 +1,22 @@
+<p>
+  <strong>セラピスト名</strong>
+  <%= @therapist.therapist_name %>
+</p>
+
+<p>
+  <strong>セラピスト歴</strong>
+  <%= @therapist.experience_years %>
+</p>
+
+<p>
+  <strong>一言コメント</strong>
+  <%= @therapist.introduction %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= image_tag @therapist.image if @therapist.image.attached? %>
+</p>
+
+<%= link_to 'Edit', edit_admin_therapist_path(@therapist) %> |
+<%= link_to 'Back', admin_therapists_path %>

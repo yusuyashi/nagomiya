@@ -1,0 +1,37 @@
+<%= form_with(model: [:admin, @therapist], local: true) do |form| %>
+  <% if @therapist.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@therapist.errors.count, "error") %> prohibited this therapist from being saved:</h2>
+
+      <ul>
+        <% @therapist.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :therapist_name, "セラピスト名" %>
+    <%= form.text_field :therapist_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :experience_years, "セラピスト歴" %>
+    <%= form.number_field :experience_years %>
+  </div>
+
+  <div class="field">
+    <%= form.label :introduction, "一言コメント" %>
+    <%= form.text_area :introduction %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

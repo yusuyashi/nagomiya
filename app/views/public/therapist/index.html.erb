@@ -1,0 +1,28 @@
+<h1>セラピスト一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>名前</th>
+      <th>経験年数</th>
+      <th>紹介</th>
+      <th>画像</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @therapists.each do |therapist| %>
+      <tr>
+        <td><%= therapist.therapist_name %></td>
+        <td><%= therapist.experience_years %> 年</td>
+        <td><%= therapist.introduction %></td>
+        <td>
+          <% if therapist.image.attached? %>
+            <%= image_tag therapist.image %>
+          <% else %>
+            画像なし
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

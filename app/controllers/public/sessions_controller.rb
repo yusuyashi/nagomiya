@@ -1,12 +1,22 @@
 # frozen_string_literal: true
 
 class Public::SessionsController < Devise::SessionsController
+  def after_sign_in_path_for(resource)
+    public_root_path
+  end
+
+  # ログアウト後のリダイレクト先
+  def after_sign_out_path_for(resource_or_scope)
+    new_customer_session_path # 顧客のログインページにリダイレクト
+  end
+
+
   def guest_sign_in
     customer = Customer.guest
     sign_in customer
     redirect_to public_root_path, notice: 'ゲストユーザーとしてログインしました。'
   end
-  
+
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
