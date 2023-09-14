@@ -1,0 +1,20 @@
+<%= form_with(model: [@service_menu, @reservation], local: true) do |form| %>
+  
+  <div class="field">
+    <strong>選択した施術メニュー:</strong> <%= @service_menu.course_name %>
+    <p><strong>料金 (税込):</strong> <%= @service_menu.price_incl_tax %> 円</p>
+    <p><strong>説明:</strong> <%= @service_menu.description %></p>
+  </div>
+  
+  <div class="field">
+    <%= form.label :therapist_id, "セラピストの指名" %>
+    <%= form.collection_select :therapist_id, Therapist.all, :id, :name %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :visit_datetime, "来店日時" %>
+    <%= form.datetime_select :visit_datetime %>
+  </div>
+  
+  <%= form.submit "予約の確認" %>
+<% end %>

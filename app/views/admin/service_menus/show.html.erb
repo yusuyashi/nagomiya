@@ -1,0 +1,30 @@
+<h1>施術メニューの詳細</h1>
+
+<p>
+  <strong>画像:</strong>
+  <% if @service_menu.image.attached? %>
+    <%= image_tag @service_menu.image, style: 'width: 200px; height: auto;' %>
+  <% else %>
+    画像なし
+  <% end %>
+</p>
+
+<p>
+  <strong>コース名:</strong>
+  <%= @service_menu.course_name %>
+</p>
+
+<p>
+  <strong>料金 (税込):</strong>
+  <%= @service_menu.price_incl_tax %>
+</p>
+
+<p>
+  <strong>説明:</strong>
+  <%= @service_menu.description %>
+</p>
+
+
+
+<%= link_to '編集', edit_admin_service_menu_path(@service_menu) %> |
+<%= link_to '戻る', admin_service_menus_path %>

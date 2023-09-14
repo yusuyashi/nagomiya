@@ -13,7 +13,7 @@
 
           <div class="d-flex justify-content-center mt-3">
             <div class="mx-3">
-            <%= link_to "退会しない", public_customer_path, class: "btn btn-primary" %>
+            <%= link_to "退会しない", public_customer_path(current_customer), class: "btn btn-primary" %>
             </div>
             <div class="mx-3">
             <%= button_to "退会する", public_customers_withdrawal_path, method: :patch, data: { confirm: "本当に退会しますか？" }, class: "btn btn-danger withdrawal-button" %>

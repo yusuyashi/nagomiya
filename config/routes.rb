@@ -18,12 +18,22 @@ namespace :public do
   get '/about', to: "homes#about", as: 'about'
   resources :therapists,only: [:index ]
 
-resources :customers, only: [:show]
+  resources :customers, only: [:show]
   get '/information/edit', to: 'customers#edit', as: 'edit_customer'
   patch '/information/update', to: 'customers#update', as: 'update_customer'
   get '/confirmation', to: "customers#confirmation", as: 'customers_confirmation'
   patch '/withdrawal', to: 'customers#withdrawal', as: 'customers_withdrawal'
 
+  resources :service_menus, only: [:index] do
+  resources :reservations, only: [:new, :create] do
+    collection do
+      get 'confirm'
+      get 'complete'
+    end
+  end
+end
+
+  
 end
 
 devise_scope :customer do
@@ -33,6 +43,8 @@ end
 namespace :admin do
   root to: "homes#top"
   resources :therapists
+  resources :customers, only: [:index, :show, :edit, :update ]
+  resources :service_menus
 end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

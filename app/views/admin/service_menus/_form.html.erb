@@ -1,0 +1,42 @@
+<%= form_with(model: [:admin, service_menu], local: true) do |form| %>
+  <% if service_menu.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(service_menu.errors.count, "error") %> prohibited this service_menu from being saved:</h2>
+      <ul>
+        <% service_menu.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if service_menu.image.attached? %>
+    <div class="field">
+      <%= image_tag service_menu.image, style: 'width: 100px; height: auto;' %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :image,"施術イメージ画像" %>
+    <%= form.file_field :image %>
+  </div>
+
+  <div class="field">
+    <%= form.label :course_name,"コース名" %>
+    <%= form.text_field :course_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price_incl_tax,"料金（税込）" %>
+    <%= form.number_field :price_incl_tax %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description,"説明" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

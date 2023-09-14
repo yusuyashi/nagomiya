@@ -1,0 +1,38 @@
+<h1>施術メニューの一覧</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>画像</th>
+      <th>コース名</th>
+      <th>料金 (税込)</th>
+      <th>説明</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @service_menus.each do |service_menu| %>
+      <tr>
+        <td>
+          <% if service_menu.image.attached? %>
+            <%= image_tag service_menu.image, style: 'width: 100px; height: auto;' %>
+          <% else %>
+            画像なし
+          <% end %>
+        </td>
+        <td><%= service_menu.course_name %></td>
+        <td><%= service_menu.price_incl_tax %>円</td>
+        <td><%= service_menu.description.truncate(50) %></td>
+        <td><%= link_to '表示', admin_service_menu_path(service_menu) %></td>
+        <td><%= link_to '編集', edit_admin_service_menu_path(service_menu) %></td>
+        <td><%= link_to '削除', admin_service_menu_path(service_menu), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '新規作成', new_admin_service_menu_path, class: 'btn btn-primary' %>
+<%= paginate @service_menus %>
