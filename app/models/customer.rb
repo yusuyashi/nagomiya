@@ -21,6 +21,8 @@ class Customer < ApplicationRecord
   end
   end
 
-
+  def guest?
+    email == 'guest@example.com'
+  end
   
 end

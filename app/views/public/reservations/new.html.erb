@@ -1,4 +1,5 @@
-<%= form_with(model: [@service_menu, @reservation], local: true) do |form| %>
+<%= form_with(model: [@service_menu, @reservation], url: public_service_menu_reservations_path(@service_menu), local: true) do |form| %>
+
   
   <div class="field">
     <strong>選択した施術メニュー:</strong> <%= @service_menu.course_name %>
@@ -8,7 +9,7 @@
   
   <div class="field">
     <%= form.label :therapist_id, "セラピストの指名" %>
-    <%= form.collection_select :therapist_id, Therapist.all, :id, :name %>
+    <%= form.collection_select :therapist_id, Therapist.all, :id, :therapist_name %>
   </div>
   
   <div class="field">

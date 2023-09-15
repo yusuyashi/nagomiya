@@ -6,44 +6,43 @@ class Public::ReservationsController < ApplicationController
   end
 
   def create
-    @service_menu = ServiceMenu.find(params[:service_menu_id])
-    @reservation = Reservation.new(reservation_params)
-    @reservation.service_menu = @service_menu
-    @reservation.customer = current_customer # current_customerはログインしている顧客を参照するメソッドと仮定
-    if @reservation.save
-      redirect_to confirm_public_reservations_path
-    else
-      render :new
-    end
+  @service_menu = ServiceMenu.find(params[:service_menu_id])
+  @reservation = Reservation.new(reservation_params)
+  @reservation.service_menu = @service_menu
+  @reservation.customer = current_customer
+  @reservation.total_amount = @service_menu.price_incl_tax
+
+  if @reservation.save
+    session[:reservation_data] = @reservation.attributes
+    redirect_to confirm_public_service_menu_reservations_path(service_menu_id: @service_menu.id)
+  else
+    render :new
   end
-  
+  end
+
   def confirm
-    @reservation = Reservation.new(reservation_params)
-    @reservation.service_menu = ServiceMenu.find(params[:service_menu_id])
-    @reservation.customer = current_customer
+  Rails.logger.debug("Session Data: #{session[:reservation_data].inspect}")
   
+    @service_menu = ServiceMenu.find(params[:service_menu_id])
+    @reservation = Reservation.new(session[:reservation_data])
+    @reservation.service_menu = @service_menu
+    @reservation.customer = current_customer
+    @reservation.therapist_id = session[:reservation_data]["therapist_id"]
+
     if @reservation.valid?
       session[:reservation_data] = @reservation.attributes
     else
+      Rails.logger.debug(@reservation.errors.full_messages.join("\n"))
       render :new
     end
   end
 
-
   def complete
-  @reservation = Reservation.new(session[:reservation_data])
   
-    if @reservation.save
-        session.delete(:reservation_data)
-    # ここで任意の完了メッセージを表示することもできます。
-      redirect_to your_success_path, notice: "予約が完了しました"
-    else
-    render :new
-    end
-    
   end
 
-  
+
+
   private
 
   def reservation_params

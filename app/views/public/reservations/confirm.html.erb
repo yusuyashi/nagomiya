@@ -1,0 +1,27 @@
+<div>
+  <h2>予約確認</h2>
+  
+  <p><strong>施術のコース名:</strong> <%= @reservation.service_menu.course_name %></p> <!-- ここにコース名を表示 -->
+  <p><strong>セラピスト:</strong> <%= @reservation.therapist_id %></p>
+  <p><strong>予約日時:</strong> <%= @reservation.visit_datetime.strftime("%Y年%m月%d日 %H時%M分") %></p>
+  <p><strong>合計金額:</strong> <%= @reservation.total_amount %> 円</p>
+
+<%= form_with url: complete_public_service_menu_reservations_path(service_menu_id: @service_menu.id), method: :get do |form| %>
+  <%= form.hidden_field :service_menu_id, value: @reservation.service_menu_id %>
+  <%= form.hidden_field :therapist_id, value: @reservation.therapist_id %>
+  <%= form.hidden_field :visit_datetime, value: @reservation.visit_datetime %>
+  <%= form.hidden_field :total_amount, value: @reservation.total_amount %>
+  <!-- 他の必要なフィールドもここに追加 -->
+
+  <% if current_customer.guest? %> <!-- ゲスト判定 -->
+    <div>
+      <label for="additional_info">追加情報:</label>
+      <%= form.text_area :additional_info %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit "予約を確定" %>
+  </div>
+<% end %>
+</div>

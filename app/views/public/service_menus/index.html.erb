@@ -24,7 +24,7 @@
         <td><%= service_menu.course_name %></td>
         <td><%= service_menu.price_incl_tax %></td>
         <td><%= service_menu.description.truncate(50) %></td>
-        
+        <td><%= link_to '予約する', new_public_service_menu_reservation_path(service_menu), class: 'btn btn-primary' %></td>
       </tr>
     <% end %>
   </tbody>
