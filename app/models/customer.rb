@@ -25,4 +25,5 @@ class Customer < ApplicationRecord
     email == 'guest@example.com'
   end
   
+  
 end

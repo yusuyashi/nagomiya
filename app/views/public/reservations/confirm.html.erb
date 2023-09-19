@@ -1,27 +1,56 @@
-<div>
-  <h2>予約確認</h2>
-  
-  <p><strong>施術のコース名:</strong> <%= @reservation.service_menu.course_name %></p> <!-- ここにコース名を表示 -->
-  <p><strong>セラピスト:</strong> <%= @reservation.therapist_id %></p>
-  <p><strong>予約日時:</strong> <%= @reservation.visit_datetime.strftime("%Y年%m月%d日 %H時%M分") %></p>
-  <p><strong>合計金額:</strong> <%= @reservation.total_amount %> 円</p>
+<h1>Reservation Confirmation</h1>
 
-<%= form_with url: complete_public_service_menu_reservations_path(service_menu_id: @service_menu.id), method: :get do |form| %>
-  <%= form.hidden_field :service_menu_id, value: @reservation.service_menu_id %>
-  <%= form.hidden_field :therapist_id, value: @reservation.therapist_id %>
-  <%= form.hidden_field :visit_datetime, value: @reservation.visit_datetime %>
-  <%= form.hidden_field :total_amount, value: @reservation.total_amount %>
-  <!-- 他の必要なフィールドもここに追加 -->
+<p><strong>Service Menu:</strong> <%= @reservation.service_menu.course_name %></p>
+<p><strong>Price:</strong> <%= @reservation.service_menu.price_incl_tax %></p>
+<p><strong>Therapist:</strong> <%= @reservation.therapist.therapist_name %></p>
+<p><strong>Visit Date and Time:</strong> <%= @reservation.visit_datetime.strftime('%Y-%m-%d %H:%M') %></p>
 
-  <% if current_customer.guest? %> <!-- ゲスト判定 -->
-    <div>
-      <label for="additional_info">追加情報:</label>
-      <%= form.text_area :additional_info %>
-    </div>
+<h2>Customer Details</h2>
+
+<% if @customer.guest? %>
+  <%= form_with model: @customer, url: { action: :update } do |f| %>
+    <h2>Guest Details</h2>
+    <%= f.label :last_name, "Last Name" %>
+    <%= f.text_field :last_name %>
+
+    <%= f.label :first_name, "First Name" %>
+    <%= f.text_field :first_name %>
+
+    <%= f.label :postal_code, "Postal Code" %>
+    <%= f.text_field :postal_code %>
+
+    <%= f.label :address, "Address" %>
+    <%= f.text_field :address %>
+
+    <%= f.label :telephone_number, "Phone Number" %>
+    <%= f.text_field :telephone_number %>
+
+    <%= f.label :email, "Email" %>
+    <%= f.text_field :email %>
+
+    <%= f.submit "Update Details" %>
+    
+    
   <% end %>
+  <%= link_to "再度入力を変更する", edit_public_reservation_path(@reservation) %>
+<% else %>
 
-  <div>
-    <%= form.submit "予約を確定" %>
-  </div>
+
+<p>Selected Course: <%= @reservation.service_menu.course_name %></p>
+<p>Price: <%= @reservation.service_menu.price_incl_tax %></p>
+<p>Visit Date and Time: <%= @reservation.visit_datetime %></p>
+<p>Customer Name: <%= @customer.last_name %> <%= @customer.first_name %></p>
+<p>Postal Code: <%= @customer.postal_code %></p>
+<p>Address: <%= @customer.address %></p>
+<p>Phone Number: <%= @customer.telephone_number %></p>
+<p>Email: <%= @customer.email %></p>
+
+  <!-- 通常の顧客情報表示セクション -->
 <% end %>
-</div>
+
+
+
+
+
+<%= link_to "Complete Reservation", complete_public_reservations_path %>
+

@@ -1,0 +1,22 @@
+<h1>Edit Reservation Details</h1>
+
+<%= form_with(model: @reservation) do |form| %>
+  <!-- 顧客の詳細を編集できるフォームフィールドをここに追加します -->
+  <%= form.fields_for :customer do |customer_fields| %>
+    <div>
+      <%= customer_fields.label :last_name %>
+      <%= customer_fields.text_field :last_name %>
+    </div>
+
+    <div>
+      <%= customer_fields.label :first_name %>
+      <%= customer_fields.text_field :first_name %>
+    </div>
+
+    <!-- 他の顧客のフィールドもここに追加 -->
+
+    <div>
+      <%= form.submit "Update Details" %>
+    </div>
+  <% end %>
+<% end %>

@@ -24,16 +24,20 @@ namespace :public do
   get '/confirmation', to: "customers#confirmation", as: 'customers_confirmation'
   patch '/withdrawal', to: 'customers#withdrawal', as: 'customers_withdrawal'
 
-  resources :service_menus, only: [:index] do
-  resources :reservations, only: [:new, :create] do
-    collection do
-      get 'confirm'
-      get 'complete'
-    end
-  end
-end
+  resources :service_menus, only: [:index]
 
-  
+  resources :reservations, only: [:new, :create, :update, :edit] do
+  collection do
+    get 'complete'
+  end
+
+  member do
+    get 'confirm'
+  end
+  end
+
+
+
 end
 
 devise_scope :customer do
