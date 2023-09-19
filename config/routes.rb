@@ -26,23 +26,23 @@ namespace :public do
 
   resources :service_menus, only: [:index]
 
-  resources :reservations, only: [:new, :create, :update, :edit] do
-  collection do
-    get 'complete'
-  end
-
-  member do
-    get 'confirm'
-  end
+  resources :reservations, only: [:new, :create, :update] do
+    member do
+      get 'confirm'
+      get 'complete'
+    end
   end
 
 
-
-end
+  resources :reservations_details, only: [:index, :show] do
+  delete :destroy, on: :member
+  end
+end 
 
 devise_scope :customer do
   post 'public/guest_sign_in', to: 'public/sessions#guest_sign_in'
 end
+
 
 namespace :admin do
   root to: "homes#top"
