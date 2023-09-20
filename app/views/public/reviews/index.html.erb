@@ -1,0 +1,19 @@
+<h1>評価と口コミ</h1>
+
+<table>
+  <tr>
+    <th>評価1から５</th>
+    <th>コメント</th>
+    <th>匿名</th>
+  </tr>
+
+  <% @reviews.each do |review| %>
+    <tr>
+      <td><%= review.rating %></td>
+      <td><%= review.comment %></td>
+      <td><%= review.anonymous_name %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to '口コミ新規投稿', new_public_review_path %>

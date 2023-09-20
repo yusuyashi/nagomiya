@@ -3,6 +3,7 @@ class ReservationDetail < ApplicationRecord
   belongs_to :service_menu
   belongs_to :customer
   belongs_to :therapist
+ 
 
   # バリデーション
   validates :service_menu_id, :customer_id, :therapist_id, :unit_price, :subtotal, presence: true

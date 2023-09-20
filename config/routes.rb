@@ -13,8 +13,9 @@ devise_for :admin, skip: [:registrations, :passwords], controllers: {
   sessions: "admin/sessions"
 }
 
+root to: "public/homes#top"
+
 namespace :public do
-  root to: "homes#top"
   get '/about', to: "homes#about", as: 'about'
   resources :therapists,only: [:index]
 
@@ -33,10 +34,12 @@ namespace :public do
     end
   end
 
-
   resources :reservations_details, only: [:index, :show] do
   delete :destroy, on: :member
   end
+  
+  resources :reviews,only: [:index, :new, :create]
+  
 end 
 
 devise_scope :customer do
@@ -50,6 +53,7 @@ namespace :admin do
   resources :customers, only: [:index, :show, :edit, :update]
   resources :service_menus
   resources :reservations_details
+  resources :reviews
 end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

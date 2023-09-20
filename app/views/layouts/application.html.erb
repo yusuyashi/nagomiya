@@ -1,43 +1,86 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Nagomiya</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Nagomiya</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="<%= root_path %>">Nagomiya Logo</a>
 
-  <body>
-    <header>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
       <% if admin_signed_in? %>
         <!-- 管理者がログイン後に表示するリンク -->
-
+        <li class="nav-item mr-3">
         <%= link_to 'セラピスト紹介', admin_therapists_path %>
+        </li>
+        <li class="nav-item mr-3">
         <%= link_to '施術メニューの一覧', admin_service_menus_path %>
+        </li>
+        <li class="nav-item mr-3">
         <%= link_to '予約履歴の一覧', admin_root_path %>
+        </li>
+        <li class="nav-item mr-3">
         <%= link_to '会員一覧', admin_customers_path %>
+        </li>
+        <li class="nav-item mr-3">
+        <%= link_to '口コミ一覧', admin_reviews_path %>
+        </li>
+        <li class="nav-item mr-3">
         <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %>
+        </li>
+        
       <% elsif customer_signed_in? %>
         <!-- 顧客がログイン後に表示するリンク -->
+        <li class="nav-item mr-3">
         <%= link_to 'セラピスト紹介', public_therapists_path %>
+        </li>
+        <li class="nav-item mr-3">
         <%= link_to '施術メニューの一覧', public_service_menus_path %>
+        </li>
+        <li class="nav-item mr-3">
         <%= link_to "マイページ", public_customer_path(current_customer) %>
+        </li>
+        <li class="nav-item mr-3">
         <%= link_to 'ログアウト', destroy_customer_session_path, method: :delete %>
+        </li>
+        <li class="nav-item mr-3">
+        <%= link_to '口コミ一覧', public_reviews_path %>
+        </li>
 
       <% else %>
         <!-- ログイン前に表示するリンク (共通) -->
+        <li class="nav-item mr-3">
         <%= link_to 'セラピスト紹介', public_therapists_path %>
+        </li>
+        <li class="nav-item mr-3">
         <%= link_to 'About', public_about_path %>
-
+        </li>
+        <li class="nav-item mr-3">
         <%= link_to '新規登録', new_customer_registration_path %>
+        </li>
+        <li class="nav-item mr-3">
         <%= link_to 'ログイン', new_customer_session_path %>
-
+        </li>
+        <li class="nav-item mr-3">
+        <%= link_to '口コミ一覧', public_reviews_path %>
+        </li>
       <% end %>
-    </header>
+    </ul>
+    </div>
+  </nav>
 
-    <%= yield %>
-  </body>
+  <%= yield %>
+</body>
 </html>
