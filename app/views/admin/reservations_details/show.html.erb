@@ -1,0 +1,27 @@
+<h1>予約詳細</h1>
+
+<table>
+  <tr>
+    <th>予約者名</th>
+    <td><%= @reservation_detail.customer_name %></td>
+  </tr>
+  <tr>
+    <th>予約日時</th>
+    <td><%= @reservation_detail.visit_datetime.strftime('%Y-%m-%d %H:%M') %></td>
+  </tr>
+  <tr>
+    <th>セラピスト名</th>
+    <td><%= @reservation_detail.therapist.therapist_name %></td>
+  </tr>
+  <tr>
+    <th>コース名</th>
+    <td><%= @reservation_detail.course_name %></td>
+  </tr>
+  <tr>
+    <th>店頭支払い</th>
+  </tr>
+  <tr>
+    <th>料金</th>
+    <td><%= @reservation_detail.unit_price %></td>
+  </tr>
+</table>

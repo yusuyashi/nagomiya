@@ -49,6 +49,7 @@ namespace :admin do
   resources :therapists
   resources :customers, only: [:index, :show, :edit, :update]
   resources :service_menus
+  resources :reservations_details
 end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

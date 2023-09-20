@@ -1,9 +1,10 @@
 class Public::ReservationsDetailsController < ApplicationController
-  before_action :set_reservation_detail, only: [:show]
+  before_action :authenticate_customer!
+  before_action :set_reservation_detail, only: [:show, :destroy]
 
   # GET /reservations_details
   def index
-    @reservation_details = ReservationDetail.all
+    @reservation_details = current_customer.reservation_details
   end
 
   # GET /reservations_details/:id
@@ -11,9 +12,7 @@ class Public::ReservationsDetailsController < ApplicationController
   end
   
   def destroy
-    @reservation_detail = ReservationDetail.find(params[:id])
     @reservation_detail.destroy
-
     redirect_to public_reservations_details_path, notice: 'Reservation detail was successfully deleted.'
   end
 

@@ -1,1 +1,22 @@
-<h1>管理者topページ</h1>
+<h1>予約一覧</h1>
+
+<table>
+  <tr>
+    <th>登録者会員</th>
+    <th>予約日時</th>
+    <th>予約者名</th>
+    <th>コース名</th>
+    <!-- 他のカラムもここに追加できます -->
+  </tr>
+
+  <% @reservation_details.each do |reservation_detail| %>
+    <tr>
+      <td><%= reservation_detail.customer.guest? ? 'ゲスト' : '会員' %></td>
+      <td><%= reservation_detail.visit_datetime.strftime('%Y-%m-%d %H:%M') if reservation_detail.visit_datetime %></td>
+      <td><%= reservation_detail.customer_name %></td>
+      <td><%= reservation_detail.course_name %></td>
+      <td><%= link_to '詳細', admin_reservations_detail_path(reservation_detail) %></td>
+      <!-- 他のカラムのデータもここに表示できます -->
+    </tr>
+  <% end %>
+</table>

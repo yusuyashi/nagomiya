@@ -17,7 +17,7 @@
 
         <%= link_to 'セラピスト紹介', admin_therapists_path %>
         <%= link_to '施術メニューの一覧', admin_service_menus_path %>
-
+        <%= link_to '予約履歴の一覧', admin_root_path %>
         <%= link_to '会員一覧', admin_customers_path %>
         <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %>
       <% elsif customer_signed_in? %>
