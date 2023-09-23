@@ -35,9 +35,7 @@ namespace :public do
     end
   end
 
-  resources :reservations_details, only: [:index, :show] do
-  delete :destroy, on: :member
-  end
+  resources :reservations_details, only: [:index, :show]
   
   resources :reviews,only: [:index, :new, :create]
   
@@ -50,10 +48,11 @@ end
 
 namespace :admin do
   root to: "homes#top"
+  
   resources :therapists
   resources :customers, only: [:index, :show, :edit, :update]
   resources :service_menus
-  resources :reservations_details
+  resources :reservations_details, only: [:index, :show, :destroy]
   resources :reviews
 end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

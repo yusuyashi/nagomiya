@@ -1,52 +1,65 @@
-<h1>Reservation Confirmation</h1>
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Reservation Confirmation</h1>
 
-<p><strong>Service Menu:</strong> <%= @reservation.service_menu.course_name %></p>
-<p><strong>Price:</strong> <%= @reservation.service_menu.price_incl_tax %></p>
-<p><strong>Therapist:</strong> <%= @reservation.therapist.therapist_name %></p>
-<p><strong>Visit Date and Time:</strong> <%= @reservation.visit_datetime.strftime('%Y-%m-%d %H:%M') %></p>
+  <div class="card mb-4">
+    <div class="card-header">予約の詳細</div>
+    <div class="card-body">
+      <p><strong>コース名:</strong> <%= @reservation.service_menu.course_name %></p>
+      <p><strong>料金:</strong> <%= @reservation.service_menu.price_incl_tax %></p>
+      <p><strong>担当セラピスト名:</strong> <%= @reservation.therapist&.therapist_name || "未指定" %></p>
+      <p><strong>予約日時:</strong> <%= @reservation.visit_datetime.strftime('%Y-%m-%d %H:%M') %></p>
+    </div>
+  </div>
 
-<h2>Customer Details</h2>
+  <div class="card">
+    <div class="card-header">予約者の詳細</div>
+    <div class="card-body">
+      <% if @customer.guest? %>
+        <%= form_with model: @customer, url: { action: :update }, class: 'mb-4' do |f| %>
+          <h4>Guest Details</h4>
 
-<% if @customer.guest? %>
-  <%= form_with model: @customer, url: { action: :update } do |f| %>
-    <h2>Guest Details</h2>
-    <%= f.label :last_name, "Last Name" %>
-    <%= f.text_field :last_name %>
+          <div class="form-group">
+            <%= f.label :last_name, "姓" %>
+            <%= f.text_field :last_name, class: "form-control" %>
+          </div>
 
-    <%= f.label :first_name, "First Name" %>
-    <%= f.text_field :first_name %>
+          <div class="form-group">
+            <%= f.label :first_name, "名" %>
+            <%= f.text_field :first_name, class: "form-control" %>
+          </div>
 
-    <%= f.label :postal_code, "Postal Code" %>
-    <%= f.text_field :postal_code %>
+          <div class="form-group">
+            <%= f.label :postal_code, "郵便番号" %>
+            <%= f.text_field :postal_code, class: "form-control" %>
+          </div>
 
-    <%= f.label :address, "Address" %>
-    <%= f.text_field :address %>
+          <div class="form-group">
+            <%= f.label :address, "住所" %>
+            <%= f.text_field :address, class: "form-control" %>
+          </div>
 
-    <%= f.label :telephone_number, "Phone Number" %>
-    <%= f.text_field :telephone_number %>
+          <div class="form-group">
+            <%= f.label :telephone_number, "電話番号" %>
+            <%= f.text_field :telephone_number, class: "form-control" %>
+          </div>
 
-    <%= f.label :email, "Email" %>
-    <%= f.text_field :email %>
+          <div class="form-group">
+            <%= f.label :email, "メールアドレス" %>
+            <%= f.text_field :email, class: "form-control" %>
+          </div>
 
-    <%= f.submit "Update Details" %>
-    
-    
-  <% end %>
-  
-<% else %>
-
-
-<p>Selected Course: <%= @reservation.service_menu.course_name %></p>
-<p>Price: <%= @reservation.service_menu.price_incl_tax %></p>
-<p>Visit Date and Time: <%= @reservation.visit_datetime %></p>
-<p>Customer Name: <%= @customer.last_name %> <%= @customer.first_name %></p>
-<p>Postal Code: <%= @customer.postal_code %></p>
-<p>Address: <%= @customer.address %></p>
-<p>Phone Number: <%= @customer.telephone_number %></p>
-<p>Email: <%= @customer.email %></p>
-
-  <!-- 通常の顧客情報表示セクション -->
-<% end %>
-
-<%= link_to "予約確定", complete_public_reservation_path(@reservation), method: :get %>
-
+            <%= f.submit "詳細を更新", class: 'btn btn-primary' %>
+        <% end %>
+      <% else %>
+        <p><strong>予約者名:</strong> <%= @customer.last_name %> <%= @customer.first_name %></p>
+        <p><strong>郵便番号:</strong> <%= @customer.postal_code %></p>
+        <p><strong>住所:</strong> <%= @customer.address %></p>
+        <p><strong>電話番号:</strong> <%= @customer.telephone_number %></p>
+        <p><strong>メールアドレス:</strong> <%= @customer.email %></p>
+      <% end %>
+    </div>
+    <div class="card-footer text-center">
+      <%= link_to "予約確定", complete_public_reservation_path(@reservation), method: :get, class: 'btn btn-success' %>
+    </div>
+  </div>
+</div>

@@ -1,36 +1,42 @@
-<h1>New Review</h1>
+<div class="container mt-5">
+  <h1 class="mb-4">口コミの投稿</h1>
 
-<%= form_with(model: @review, url: public_reviews_path, local: true) do |form| %>
-  <% if @review.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+  <%= form_with(model: @review, url: public_reviews_path, local: true, class: 'needs-validation', novalidate: true) do |form| %>
+    <% if @review.errors.any? %>
+      <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading"><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h4>
+        <ul>
+          <% @review.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-      <ul>
-        <% @review.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+    <div class="form-group">
+      <%= form.label :rating, '評価1から5' %>
+      <%= form.number_field :rating, in: 1..5, class: 'form-control', required: true %>
+      <div class="invalid-feedback">
+        Please provide a valid rating.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :comment, 'コメント' %>
+      <%= form.text_area :comment, class: 'form-control', rows: 5, required: true %>
+      <div class="invalid-feedback">
+        Please provide a valid comment.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :anonymous_name, '匿名の名前（オプション）' %>
+      <%= form.text_field :anonymous_name, class: 'form-control' %>
+    </div>
+
+    <div class="form-group mt-4">
+      <%= form.submit '新規投稿', class: 'btn btn-primary' %>
+      <%= link_to '戻る', public_reviews_path, class: 'btn btn-secondary ml-2' %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :rating %>
-    <%= form.number_field :rating, in: 1..5 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :comment %>
-    <%= form.text_area :comment %>
-  </div>
-
-  <div class="field">
-    <%= form.label :anonymous_name, '匿名の名前（オプション）' %>
-    <%= form.text_field :anonymous_name %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-
-<%= link_to 'Back', public_reviews_path %>
+</div>

@@ -1,26 +1,26 @@
-<h1>予約詳細</h1>
+<div class="container mt-5">
+  <h1 class="mb-4">予約詳細</h1>
 
-<table>
-  <tr>
-    <th>Visit Date and Time</th>
-    <td><%= @reservation_detail.visit_datetime %></td>
-  </tr>
-  <tr>
-    <th>Customer Name</th>
-    <td><%= @reservation_detail.customer_name %></td>
-  </tr>
-  <tr>
-    <th>Course Name</th>
-    <td><%= @reservation_detail.course_name %></td>
-  </tr>
-  <tr>
-    <th>Unit Price</th>
-    <td><%= @reservation_detail.unit_price %></td>
-  </tr>
-  <tr>
-    <th>Subtotal</th>
-    <td><%= @reservation_detail.subtotal %></td>
-  </tr>
-</table>
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th>予約日時</th>
+        <td><%= @reservation_detail.visit_datetime %></td>
+      </tr>
+      <tr>
+        <th>予約者名</th>
+        <td><%= @reservation_detail.customer_name %></td>
+      </tr>
+      <tr>
+        <th>コース名</th>
+        <td><%= @reservation_detail.course_name %></td>
+      </tr>
+      <tr>
+        <th>料金</th>
+        <td><%= @reservation_detail.unit_price %></td>
+      </tr>
+    </tbody>
+  </table>
 
-<%= link_to 'Back to Reservation List', public_reservations_details_path %>
+  <%= link_to '戻る', public_reservations_details_path, class: 'btn btn-secondary mt-3' %>
+</div>

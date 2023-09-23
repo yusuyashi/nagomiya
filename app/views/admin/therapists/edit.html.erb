@@ -1,8 +1,8 @@
+<div class="container mt-5">
 <%= form_with(model: [:admin, @therapist], local: true) do |form| %>
   <% if @therapist.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@therapist.errors.count, "error") %> prohibited this therapist from being saved:</h2>
-
+    <div class="alert alert-danger">
+      <h4 class="alert-heading"><%= pluralize(@therapist.errors.count, "error") %> prohibited this therapist from being saved:</h4>
       <ul>
         <% @therapist.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -11,27 +11,28 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :therapist_name, "セラピスト名" %>
-    <%= form.text_field :therapist_name %>
+    <%= form.text_field :therapist_name, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :experience_years, "セラピスト歴" %>
-    <%= form.number_field :experience_years %>
+    <%= form.number_field :experience_years, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :introduction, "一言コメント" %>
-    <%= form.text_area :introduction %>
+    <%= form.text_area :introduction, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :image %>
-    <%= form.file_field :image %>
+    <%= form.file_field :image, class: "form-control-file" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions mt-3">
+    <%= form.submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>
+</div>

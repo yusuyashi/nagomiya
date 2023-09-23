@@ -1,19 +1,26 @@
-<h1>評価と口コミ</h1>
+<div class="container mt-5">
+  <h1 class="mb-4">評価と口コミ</h1>
 
-<table>
-  <tr>
-    <th>評価1から５</th>
-    <th>コメント</th>
-    <th>匿名</th>
-  </tr>
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>評価1から5</th>
+        <th>コメント</th>
+        <th>匿名</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reviews.each do |review| %>
+        <tr>
+          <td><%= review.rating %></td>
+          <td><%= review.comment %></td>
+          <td><%= review.anonymous_name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-  <% @reviews.each do |review| %>
-    <tr>
-      <td><%= review.rating %></td>
-      <td><%= review.comment %></td>
-      <td><%= review.anonymous_name %></td>
-    </tr>
-  <% end %>
-</table>
-
-<%= link_to '口コミ新規投稿', new_public_review_path %>
+  <div class="mt-4">
+    <%= link_to '口コミ新規投稿', new_public_review_path, class: 'btn btn-primary' %>
+  </div>
+</div>

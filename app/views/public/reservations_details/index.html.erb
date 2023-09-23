@@ -1,26 +1,30 @@
-<h1>予約履歴一覧</h1>
+<div class="container mt-5">
+  <h1 class="mb-4">予約履歴一覧</h1>
 
-<table>
-  <tr>
-    <th>Visit Date and Time</th> <!-- 新しいカラム -->
-    <th>Customer Name</th> <!-- 新しいカラム -->
-    <th>Course Name</th> <!-- 新しいカラム -->
-    <th>Unit Price</th>
-    <th>Subtotal</th>
-    <th>詳細</th>
-  </tr>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>予約日時</th>
+        <th>予約者名</th>
+        <th>コース名</th>
+        <th>料金</th>
+        <th>詳細</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reservation_details.each do |reservation_detail| %>
+        <tr>
+          <td><%= reservation_detail.visit_datetime %></td>
+          <td><%= reservation_detail.customer_name %></td>
+          <td><%= reservation_detail.course_name %></td>
+          <td><%= reservation_detail.unit_price %></td>
+          <td><%= link_to '詳細', public_reservations_detail_path(reservation_detail), class: 'btn btn-info btn-sm' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-  <% @reservation_details.each do |reservation_detail| %>
-    <tr>
-      <td><%= reservation_detail.visit_datetime %></td> <!-- 新しいカラム -->
-      <td><%= reservation_detail.customer_name %></td> <!-- 新しいカラム -->
-      <td><%= reservation_detail.course_name %></td> <!-- 新しいカラム -->
-      <td><%= reservation_detail.unit_price %></td>
-      <td><%= reservation_detail.subtotal %></td>
-      <td><%= link_to '詳細', public_reservations_detail_path(reservation_detail) %></td>
-      <td><%= link_to '削除', public_reservations_detail_path(reservation_detail), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-</table>
-
-<%= paginate @reservation_details %>
+  <div class="mt-4">
+    <%= paginate @reservation_details %>
+  </div>
+</div>

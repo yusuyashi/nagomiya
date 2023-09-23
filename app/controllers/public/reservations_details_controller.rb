@@ -11,10 +11,6 @@ class Public::ReservationsDetailsController < ApplicationController
   def show
   end
   
-  def destroy
-    @reservation_detail.destroy
-    redirect_to public_reservations_details_path, notice: 'Reservation detail was successfully deleted.'
-  end
 
   private
 
