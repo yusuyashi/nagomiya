@@ -44,11 +44,16 @@ class Public::ReservationsController < ApplicationController
   )
 
   if @reservation_detail.save
-    redirect_to public_reservations_details_path(@reservation_detail), notice: "Reservation completed successfully!"
+    redirect_to thanks_public_reservation_path(@reservation), notice: "Reservation completed successfully!"
   else
     flash[:alert] = "There was an error completing the reservation."
     render :confirm
   end
+  end
+
+  def thanks
+    @reservation = Reservation.find(params[:id])
+    # お礼メッセージや、予約の詳細情報などを表示するためのロジックをここに記述
   end
 
 

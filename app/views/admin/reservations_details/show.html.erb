@@ -2,10 +2,6 @@
 
 <table>
   <tr>
-    <th>予約者名</th>
-    <td><%= @reservation_detail.customer_name %></td>
-  </tr>
-  <tr>
     <th>予約日時</th>
     <td><%= @reservation_detail.visit_datetime.strftime('%Y-%m-%d %H:%M') %></td>
   </tr>
@@ -23,5 +19,21 @@
   <tr>
     <th>料金</th>
     <td><%= @reservation_detail.unit_price %></td>
+  </tr>
+  <tr>
+    <th>予約者名</th>
+    <td><%= @reservation_detail.customer_name %></td>
+  </tr>
+  <tr>
+    <th>住所</th>
+    <td><%= @reservation_detail.customer.address %></td>
+  </tr>
+  <tr>
+    <th>電話番号</th>
+    <td><%= @reservation_detail.customer.telephone_number %></td>
+  </tr>
+  <tr>
+    <th>メールアドレス</th>
+    <td><%= @reservation_detail.customer.email %></td>
   </tr>
 </table>

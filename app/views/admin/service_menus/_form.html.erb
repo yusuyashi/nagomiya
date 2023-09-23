@@ -1,42 +1,50 @@
-<%= form_with(model: [:admin, service_menu], local: true) do |form| %>
-  <% if service_menu.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(service_menu.errors.count, "error") %> prohibited this service_menu from being saved:</h2>
-      <ul>
-        <% service_menu.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+<div class="container h-100">
+  <div class="row h-100 justify-content-center align-items-center">
+    <div class="col-md-6">
+
+      <%= form_with(model: [:admin, service_menu], local: true, html: { class: 'needs-validation', novalidate: '' }) do |form| %>
+        <% if service_menu.errors.any? %>
+          <div class="alert alert-danger">
+            <h4><%= pluralize(service_menu.errors.count, "error") %> prohibited this service_menu from being saved:</h4>
+            <ul>
+              <% service_menu.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
+
+        <% if service_menu.image.attached? %>
+          <div class="mb-3 text-center">
+            <%= image_tag service_menu.image, class: 'img-thumbnail', style: 'width: 100px;' %>
+          </div>
+        <% end %>
+
+        <div class="mb-3">
+          <%= form.label :image,"施術イメージ画像", class: 'form-label' %>
+          <%= form.file_field :image, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :course_name,"コース名", class: 'form-label' %>
+          <%= form.text_field :course_name, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :price_incl_tax,"料金（税込）", class: 'form-label' %>
+          <%= form.number_field :price_incl_tax, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :description,"説明", class: 'form-label' %>
+          <%= form.text_area :description, class: 'form-control', rows: '5' %>
+        </div>
+
+        <div class="actions text-center">
+          <%= form.submit "保存", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+
     </div>
-  <% end %>
-
-  <% if service_menu.image.attached? %>
-    <div class="field">
-      <%= image_tag service_menu.image, style: 'width: 100px; height: auto;' %>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :image,"施術イメージ画像" %>
-    <%= form.file_field :image %>
   </div>
-
-  <div class="field">
-    <%= form.label :course_name,"コース名" %>
-    <%= form.text_field :course_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :price_incl_tax,"料金（税込）" %>
-    <%= form.number_field :price_incl_tax %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description,"説明" %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

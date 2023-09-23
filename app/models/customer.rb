@@ -20,12 +20,12 @@ class Customer < ApplicationRecord
     customer.telephone_number = '1234567890'
     customer.is_deleted = false
     # 他の必要なカラムもここに追加
+  customer.is_guest = true
   end
   end
 
-  def guest?
-    email == 'guest@example.com'
-  end
-  
+def guest?
+  is_guest
+end
   
 end

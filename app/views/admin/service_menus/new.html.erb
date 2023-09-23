@@ -1,5 +1,7 @@
-<h1>新しい施術メニューの作成</h1>
+<h1 class="text-center mb-4">新しい施術メニューの作成</h1>
 
 <%= render 'form', service_menu: @service_menu %>
 
-<%= link_to '戻る', admin_service_menus_path %>
+<div class="text-center mt-3">
+  <%= link_to '戻る', admin_service_menus_path, class: 'btn btn-secondary' %>
+</div>

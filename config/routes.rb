@@ -31,6 +31,7 @@ namespace :public do
     member do
       get 'confirm'
       get 'complete'
+      get 'thanks'
     end
   end
 

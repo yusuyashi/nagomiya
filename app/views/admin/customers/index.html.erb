@@ -21,12 +21,14 @@
          </td>
           <td class="text-center"><%= customer.email %></td>
       <td class="text-center">
-        <% if customer.is_deleted %>
-          <span class="text-danger">退会</span>
-        <% else %>
-          <span class="text-success">有効</span>
-        <% end %>
-          </td>
+  <% if customer.guest? %>
+    <span class="text-muted">登録してない</span>
+  <% elsif customer.is_deleted %>
+    <span class="text-danger">退会</span>
+  <% else %>
+    <span class="text-success">有効</span>
+  <% end %>
+</td>
         </tr>
       <% end %>
     </tbody>

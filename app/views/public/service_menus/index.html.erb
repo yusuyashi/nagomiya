@@ -22,7 +22,7 @@
           <% end %>
         </td>
         <td><%= service_menu.course_name %></td>
-        <td><%= service_menu.price_incl_tax %></td>
+        <td><%= service_menu.price_incl_tax %>円</td>
         <td><%= service_menu.description.truncate(50) %></td>
         <td><%= link_to '予約する', new_public_reservation_path(service_menu_id: service_menu.id), class: 'btn btn-primary' %></td>
       </tr>
@@ -30,5 +30,5 @@
   </tbody>
 </table>
 
-<%= link_to 'トップページへ', public_root_path, class: 'btn btn-primary' %>
+<%= link_to 'トップページへ', root_path, class: 'btn btn-primary' %>
 <%= paginate @service_menus %>

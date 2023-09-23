@@ -4,7 +4,7 @@ class Public::ReservationsDetailsController < ApplicationController
 
   # GET /reservations_details
   def index
-    @reservation_details = current_customer.reservation_details
+    @reservation_details = current_customer.reservation_details.page(params[:page])
   end
 
   # GET /reservations_details/:id
