@@ -2,7 +2,7 @@ class Public::ReviewsController < ApplicationController
   before_action :authenticate_customer!, only: [:new, :create]
 
   def index
-    @reviews = Review.all
+    @reviews = Review.all.page(params[:page]).per(4)
   end
 
   def new

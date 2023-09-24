@@ -1,33 +1,42 @@
 <div class="container mt-5">
   <h1 class="mb-4">口コミ一覧</h1>
 
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>評価</th>
-        <th>コメント</th>
-        <th>投稿者</th>
-        <th>匿名</th>
-        <th>管理者コメント</th>
-        <th>操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @reviews.each do |review| %>
-        <tr>
-          <td><%= review.rating %></td>
-          <td><%= review.comment %></td>
-          <td><%= review.customer_id ? "会員: #{review.customer_id}" : "ゲスト: #{review.anonymous_name}" %></td>
-          <td><%= review.anonymous_name %></td>
-          <td><%= review.admin_comment %></td>
-          <td>
-            <%= link_to '編集', edit_admin_review_path(review), class: 'btn btn-primary btn-sm mr-2' %> 
-            <%= link_to '削除', admin_review_path(review), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm mr-2' %> 
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <% @reviews.each do |review| %>
+    <div class="border mb-3 p-3">
+      <div class="row mb-2">
+        <div class="col-3 font-weight-bold">評価:</div>
+        <div class="col-9"><%= review.rating %></div>
+      </div>
 
-  <%= link_to 'お礼のコメント追加', new_admin_review_path, class: 'btn btn-success mt-3' %>
+      <div class="row mb-2">
+        <div class="col-3 font-weight-bold">コメント:</div>
+        <div class="col-9"><%= review.comment %></div>
+      </div>
+
+      <div class="row mb-2">
+        <div class="col-3 font-weight-bold">投稿者:</div>
+        <div class="col-9"><%= review.customer_id ? "会員: #{review.customer_id}" : "ゲスト: #{review.anonymous_name}" %></div>
+      </div>
+
+      <div class="row mb-2">
+        <div class="col-3 font-weight-bold">匿名:</div>
+        <div class="col-9"><%= review.anonymous_name %></div>
+      </div>
+
+      <div class="row mb-2">
+        <div class="col-3 font-weight-bold">管理者コメント:</div>
+        <div class="col-9"><%= review.admin_comment %></div>
+      </div>
+
+      <div class="row">
+        <div class="col-3 font-weight-bold">操作:</div>
+        <div class="col-9">
+          <%= link_to 'お礼コメント', edit_admin_review_path(review), class: 'btn btn-primary btn-sm mr-2' %> 
+          <%= link_to '削除', admin_review_path(review), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm mr-2' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<%= paginate @reviews %>
 </div>
+

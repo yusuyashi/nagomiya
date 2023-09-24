@@ -1,26 +1,32 @@
 <div class="container mt-5">
   <h1 class="mb-4">評価と口コミ</h1>
 
-  <table class="table table-bordered table-striped">
-    <thead class="thead-dark">
-      <tr>
-        <th>評価1から5</th>
-        <th>コメント</th>
-        <th>匿名</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @reviews.each do |review| %>
-        <tr>
-          <td><%= review.rating %></td>
-          <td><%= review.comment %></td>
-          <td><%= review.anonymous_name %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <% @reviews.each do |review| %>
+    <div class="border mb-3 p-3">
+      <div class="row mb-2">
+        <div class="col-3 font-weight-bold">評価1(不満)から5(満足):</div>
+        <div class="col-9"><%= review.rating %></div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-2 font-weight-bold">コメント:</div>
+        <div class="col-10"><%= review.comment %></div>
+      </div>
+
+      <div class="row mb-2">
+        <div class="col-2 font-weight-bold">匿名:</div>
+        <div class="col-10"><%= review.anonymous_name %></div>
+      </div>
+
+      <div class="row">
+        <div class="col-2 font-weight-bold">お店のコメント:</div>
+        <div class="col-10"><%= review.admin_comment %></div>
+      </div>
+    </div>
+  <% end %>
 
   <div class="mt-4">
     <%= link_to '口コミ新規投稿', new_public_review_path, class: 'btn btn-primary' %>
   </div>
+  <%= paginate @reviews %>
 </div>
+
