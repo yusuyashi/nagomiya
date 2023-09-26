@@ -19,6 +19,30 @@
         <th>料金</th>
         <td><%= @reservation_detail.unit_price %></td>
       </tr>
+      <tr>
+        <th>支払い</th>
+        <td>店頭支払い</td>
+      </tr>
+      <tr>
+        <th>担当セラピスト名</th>
+        <td><%= @reservation_detail.therapist.therapist_name %></td>
+      </tr>
+      <tr>
+        <th>郵便番号</th>
+        <td><%= @reservation_detail.customer.postal_code %></td>
+      </tr>
+      <tr>
+        <th>住所</th>
+        <td><%= @reservation_detail.customer.address %></td>
+      </tr>
+      <tr>
+        <th>電話番号</th>
+        <td><%= @reservation_detail.customer.telephone_number %></td>
+      </tr>
+      <tr>
+        <th>メールアドレス</th>
+        <td><%= @reservation_detail.customer.email %></td>
+      </tr>
     </tbody>
   </table>
 
