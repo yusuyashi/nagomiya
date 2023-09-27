@@ -7,7 +7,7 @@ class Public::SessionsController < Devise::SessionsController
 
   # ログアウト後のリダイレクト先
   def after_sign_out_path_for(resource_or_scope)
-    new_customer_session_path # 顧客のログインページにリダイレクト
+    root_path #topページにリダイレクト
   end
 
 
