@@ -4,7 +4,7 @@ class Public::ReservationsController < ApplicationController
     @service_menu = ServiceMenu.find(params[:service_menu_id])
     @reservation = Reservation.new
   end
-  
+
   def create
   @service_menu = ServiceMenu.find(params[:reservation][:service_menu_id])
   @reservation = Reservation.new(reservation_params)
@@ -23,25 +23,35 @@ class Public::ReservationsController < ApplicationController
   @reservation = Reservation.find(params[:id])
   @customer = @reservation.customer
   end
-  
-  
+
+
   def complete
   @reservation = Reservation.find(params[:id])
   @customer = @reservation.customer
   @service_menu = @reservation.service_menu
 
+  # @customerが有効でない場合は、確定を中止し、再度確認画面を表示する
+  unless @customer.valid?
+    flash[:alert] = "顧客情報が正しくありません。"
+    render :confirm
+    return
+  end
+
+  # 以下は以前のコードを維持
   @reservation_detail = ReservationDetail.new(
     service_menu_id: @service_menu.id,
     customer_id: @customer.id,
     therapist_id: @reservation.therapist_id,
-    unit_price: @service_menu.price_incl_tax, # ここで単価を設定
-    subtotal: @reservation.total_amount, # ここで小計を設定
-    visit_datetime: @reservation.visit_datetime, # 予約日時を設定
-    customer_name: "#{@customer.last_name} #{@customer.first_name}", # 予約者名を設定
-    course_name: @service_menu.course_name, # コース名を設定
+    unit_price: @service_menu.price_incl_tax,
+    subtotal: @reservation.total_amount,
+    visit_datetime: @reservation.visit_datetime,
+    customer_name: "#{@customer.last_name} #{@customer.first_name}",
+    course_name: @service_menu.course_name,
     created_at: Time.now,
     updated_at: Time.now
   )
+
+ 
 
   if @reservation_detail.save
     redirect_to thanks_public_reservation_path(@reservation), notice: "Reservation completed successfully!"
@@ -49,7 +59,10 @@ class Public::ReservationsController < ApplicationController
     flash[:alert] = "There was an error completing the reservation."
     render :confirm
   end
+
   end
+
+
 
   def thanks
     @reservation = Reservation.find(params[:id])
@@ -57,17 +70,30 @@ class Public::ReservationsController < ApplicationController
   end
 
 
-  
-  
+
 def update
   @reservation = Reservation.find(params[:id])
   @customer = @reservation.customer
-  if @customer.update(customer_params)
-    redirect_to confirm_public_reservation_path(@reservation)
+
+  if @customer.guest?
+    # ゲストユーザーの場合、情報をアップデートする
+    if @customer.update(customer_params)
+      flash[:notice] = "ゲストユーザーの情報を更新しました。"
+      redirect_to confirm_public_reservation_path(@reservation)
+    else
+      flash[:alert] = "情報の更新に失敗しました。"
+      render :confirm
+    end
   else
-    render :confirm
+    # 通常のユーザーの場合、情報をアップデートする
+    if @customer.update(customer_params)
+      redirect_to confirm_public_reservation_path(@reservation)
+    else
+      render :confirm
+    end
   end
 end
+
 
 private
 
@@ -82,7 +108,7 @@ end
 end
 
 
- 
 
- 
+
+
 

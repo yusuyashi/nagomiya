@@ -1,4 +1,5 @@
 <div class="container mt-5">
+  <h1>セラピスト新規作成</h1>
   <%= form_with(model: [:admin, @therapist], local: true) do |form| %>
     <% if @therapist.errors.any? %>
       <div class="alert alert-danger">
@@ -32,7 +33,7 @@
     </div>
 
     <div class="actions mt-3">
-      <%= form.submit "Submit", class: "btn btn-primary" %>
+      <%= form.submit "保存", class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>

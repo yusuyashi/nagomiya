@@ -7,7 +7,7 @@
       <p><strong>コース名:</strong> <%= @reservation.service_menu.course_name %></p>
       <p><strong>料金:</strong> <%= @reservation.service_menu.price_incl_tax %></p>
       <p><strong>担当セラピスト名:</strong> <%= @reservation.therapist&.therapist_name || "未指定" %></p>
-      <p><strong>予約日時:</strong> <%= @reservation.visit_datetime.strftime('%Y-%m-%d %H:%M') %></p>
+      <p><strong>来店日時:</strong> <%= @reservation.visit_datetime.strftime('%Y-%m-%d %H:%M') %></p>
     </div>
   </div>
 
@@ -16,6 +16,16 @@
     <div class="card-body">
       <% if @customer.guest? %>
         <%= form_with model: @customer, url: { action: :update }, class: 'mb-4' do |f| %>
+       <% if @customer.errors.any? %>
+  <div class="alert alert-danger">
+    <h4 class="alert-heading">入力エラーがあります:</h4>
+        <ul>
+          <% @customer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
+  </div>
+      <% end %>
           <h4>Guest Details</h4>
 
           <div class="form-group">
@@ -43,10 +53,6 @@
             <%= f.text_field :telephone_number, class: "form-control" %>
           </div>
 
-          <div class="form-group">
-            <%= f.label :email, "メールアドレス" %>
-            <%= f.text_field :email, class: "form-control" %>
-          </div>
 
             <%= f.submit "詳細を更新", class: 'btn btn-primary' %>
         <% end %>

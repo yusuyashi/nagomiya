@@ -4,12 +4,12 @@
   <table class="table table-bordered">
     <tbody>
       <tr>
-        <th>予約日時</th>
+        <th>来店日時</th>
         <td><%= @reservation_detail.visit_datetime.strftime('%Y-%m-%d %H:%M') %></td>
       </tr>
       <tr>
         <th>担当セラピスト名</th>
-        <td><%= @reservation_detail.therapist.therapist_name %></td>
+        <td><%= @reservation_detail.therapist&.therapist_name || 'なし' %></td>
       </tr>
       <tr>
         <th>コース名</th>

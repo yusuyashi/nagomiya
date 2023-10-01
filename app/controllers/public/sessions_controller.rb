@@ -13,6 +13,7 @@ class Public::SessionsController < Devise::SessionsController
 
   def guest_sign_in
     customer = Customer.guest
+    customer.reset_guest_attributes  # ここでゲスト情報をデフォルトに戻す
     sign_in customer
     redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
   end
