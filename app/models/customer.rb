@@ -25,7 +25,7 @@ class Customer < ApplicationRecord
  
   def reset_guest_attributes
     if guest?
-      update(
+      update_columns(
         last_name: 'ゲスト名を入力',
         first_name: 'ゲスト名を入力',
         postal_code: '郵便番号を入力',
