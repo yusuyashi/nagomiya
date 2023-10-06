@@ -46,6 +46,7 @@ class Public::ReservationsController < ApplicationController
     subtotal: @reservation.total_amount,
     visit_datetime: @reservation.visit_datetime,
     customer_name: "#{@customer.last_name} #{@customer.first_name}",
+    customer_kana_name: "#{@customer.last_name_kana} #{@customer.first_name_kana}", # この行を追加
     course_name: @service_menu.course_name,
     created_at: Time.now,
     updated_at: Time.now
@@ -102,7 +103,7 @@ def reservation_params
 end
 
 def customer_params
-  params.require(:customer).permit(:last_name, :first_name, :postal_code, :address, :telephone_number, :email)
+  params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number, :email)
 end
 
 end
