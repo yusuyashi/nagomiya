@@ -11,22 +11,19 @@ class Customer < ApplicationRecord
   validate :validate_guest_information, if: :guest?
 
   def self.guest
-  customer = find_or_initialize_by(email: 'guest@example.com')
-  if customer.new_record?
-    customer.assign_attributes(
-      password: SecureRandom.urlsafe_base64,
-      last_name: 'ゲスト名を入力',
-      first_name: 'ゲスト名を入力',
-      postal_code: '郵便番号を入力',
-      address: '住所を入力',
-      telephone_number: '電話番号を入力',
-      is_deleted: false,
-      is_guest: true
-    )
-    customer.save!(validate: false)
+    find_or_create_by!(email: 'guest@example.com') do |customer|
+        customer.password = SecureRandom.urlsafe_base64
+        customer.last_name = 'ゲスト名を入力'
+        customer.first_name = 'ゲスト名を入力'
+        customer.last_name_kana = 'ゲストカナを入力' # この行を追加
+        customer.postal_code = '郵便番号を入力'
+        customer.address = '住所を入力'
+        customer.telephone_number = '電話番号を入力'
+        customer.is_deleted = false
+        customer.is_guest = true
+    end
   end
-  customer
-  end
+
 
  
   def reset_guest_attributes
