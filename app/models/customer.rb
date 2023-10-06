@@ -8,7 +8,8 @@ class Customer < ApplicationRecord
   has_many :reservation_details
   has_many :reviews
   
-  validate :validate_guest_information, if: :guest?
+  validate :validate_guest_information, if: -> { guest? && persisted? }
+
 
   def self.guest
     find_or_create_by!(email: 'guest@example.com') do |customer|
@@ -43,6 +44,7 @@ class Customer < ApplicationRecord
   end
 
 private
+
 
   def validate_guest_information
   if last_name == 'ゲスト名を入力' || last_name.blank? ||
