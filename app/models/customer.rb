@@ -47,6 +47,7 @@ private
   def validate_guest_information
   if last_name == 'ゲスト名を入力' || last_name.blank? ||
      first_name == 'ゲスト名を入力' || first_name.blank? ||
+     last_name_kana == 'ゲストカナを入力' || last_name_kana.blank? || # この行を追加
      postal_code == '郵便番号を入力' || postal_code.blank? ||
      address == '住所を入力' || address.blank? ||
      telephone_number == '電話番号を入力' || telephone_number.blank?
