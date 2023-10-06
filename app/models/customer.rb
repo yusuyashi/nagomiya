@@ -7,7 +7,7 @@ class Customer < ApplicationRecord
   has_many :reservations
   has_many :reservation_details
   has_many :reviews
-  
+
   validate :validate_guest_information, if: -> { guest? && persisted? }
 
 
@@ -28,12 +28,14 @@ class Customer < ApplicationRecord
 
 
 
- 
+
   def reset_guest_attributes
     if guest?
       update_columns(
         last_name: 'ゲスト名を入力',
         first_name: 'ゲスト名を入力',
+        last_name_kana: 'ゲストカナを入力',
+        first_name_kana: 'ゲストカナを入力',
         postal_code: '郵便番号を入力',
         address: '住所を入力',
         telephone_number: '電話番号を入力'
