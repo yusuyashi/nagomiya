@@ -12,8 +12,12 @@
   <p><strong>住所:</strong> <%= @customer.address %></p>
   <p><strong>電話番号:</strong> <%= @customer.telephone_number %></p>
   <p><strong>メールアドレス:</strong> <%= @customer.email %></p>
-  <p><strong>ステータス:</strong> <%= @customer.is_deleted ? '退会' : '有効' %></p>
-  
+
+  <!-- ゲストユーザーでない場合のみ、ステータスを表示する -->
+  <% unless @customer.guest? %>
+    <p><strong>ステータス:</strong> <%= @customer.is_deleted ? '退会' : '有効' %></p>
+  <% end %>
+
   <div class="mt-3">
     <% unless @customer.guest? %> <!-- ゲストユーザーの場合は編集リンクを非表示にする -->
       <%= link_to '編集', edit_admin_customer_path(@customer), class: 'btn btn-primary' %>
