@@ -108,12 +108,12 @@ first_service_menu = ServiceMenu.first
 # 既存のCustomerから1つ取得
 first_customer = Customer.first
 
-# 既存のセラピストからランダムに1つ取得
-random_therapist = Therapist.order("RANDOM()").first
+therapist = Therapist.first  # 最初のセラピストを取得
+
 
 # 予約テストデータの作成
 ReservationDetail.find_or_create_by!(service_menu_id: first_service_menu.id, customer_id: first_customer.id, visit_datetime: Time.now + 7.days) do |detail|
-  detail.therapist_id = random_therapist.id
+  detail.therapist_id = therapist.id
   detail.customer_name = "#{first_customer.last_name} #{first_customer.first_name}"
   detail.course_name = first_service_menu.course_name
   detail.unit_price = first_service_menu.price_incl_tax
