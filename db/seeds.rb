@@ -93,7 +93,7 @@ therapists_data.each do |data|
     therapist.experience_years = data[:experience_years]
     therapist.introduction = data[:introduction]
   end
-
+  
   # 画像のアタッチ（もし指定されていれば）
   if data[:image_path] && !therapist.image.attached?
     therapist.image.attach(io: File.open(data[:image_path]), filename: File.basename(data[:image_path]))
