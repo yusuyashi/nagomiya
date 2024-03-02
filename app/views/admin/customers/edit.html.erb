@@ -7,7 +7,7 @@
   <%= f.text_field :last_name, class: 'mr-2' %>
   <%= f.text_field :first_name, class: 'mr-2' %>
  </div>
- 
+
  <div class="field d-flex mt-3">
     <%= f.label :first_name_kana, 'ふりがな', class: 'mr-3 ' %>
     <%= f.text_field :last_name_kana, class: 'mr-2' %>
@@ -33,16 +33,16 @@
     <%= f.label :email, 'メールアドレス', class: 'mr-2' %>
     <%= f.text_field :email %>
   </div>
-  
+
  <div class="field d-flex">
-  <%= f.label :is_deleted, '会員ステータス', class: 'mr-3' %>
+    <%= f.label :is_deleted, '会員ステータス', class: 'mr-3' %>
   <div class="form-check mr-2">
-    <%= f.radio_button :is_deleted, false, class: 'form-check-input' %>
-    <%= f.label :is_deleted, '有効', class: 'form-check-label' %>
+    <%= f.radio_button :is_deleted, false, id: 'is_deleted_false', class: 'form-check-input' %>
+    <%= f.label :is_deleted_false, '有効', value: false, class: 'form-check-label', for: 'is_deleted_false' %>
   </div>
   <div class="form-check">
-    <%= f.radio_button :is_deleted, true, class: 'form-check-input' %>
-    <%= f.label :is_deleted, '退会', class: 'form-check-label' %>
+    <%= f.radio_button :is_deleted, true, id: 'is_deleted_true', class: 'form-check-input' %>
+    <%= f.label :is_deleted_true, '退会', value: true, class: 'form-check-label', for: 'is_deleted_true' %>
   </div>
 </div>
 
