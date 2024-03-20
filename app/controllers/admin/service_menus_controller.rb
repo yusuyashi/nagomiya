@@ -1,4 +1,5 @@
 class Admin::ServiceMenusController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_service_menu, only: [:show, :edit, :update]
 
   def index
@@ -31,7 +32,7 @@ class Admin::ServiceMenusController < ApplicationController
       render :edit
     end
   end
-  
+
   def destroy
     @service_menu = ServiceMenu.find(params[:id])
     @service_menu.destroy

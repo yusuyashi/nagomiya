@@ -1,4 +1,6 @@
 class Admin::ReviewsController < ApplicationController
+  before_action :authenticate_admin!
+
   before_action :set_review, only: [:edit, :update, :destroy]
 
   def index

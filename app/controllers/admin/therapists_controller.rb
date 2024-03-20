@@ -1,4 +1,6 @@
 class Admin::TherapistsController < ApplicationController
+  before_action :authenticate_admin!
+
   def index
     @therapists = Therapist.all
   end
@@ -32,7 +34,7 @@ class Admin::TherapistsController < ApplicationController
       render :edit
     end
   end
-  
+
   def destroy
     @therapist = Therapist.find(params[:id])
     @therapist.destroy

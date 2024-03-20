@@ -1,8 +1,10 @@
 class Admin::ReservationsDetailsController < ApplicationController
+  before_action :authenticate_admin!
+
   def show
     @reservation_detail = ReservationDetail.find(params[:id])
   end
-  
+
   def destroy
     @reservation_detail = ReservationDetail.find(params[:id])
     @reservation_detail.destroy
