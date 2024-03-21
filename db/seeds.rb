@@ -62,11 +62,11 @@ end
 test_customer_1 = Customer.find_by!(email: 'test1@example.com')
 
 4.times do |i|
-  Review.find_or_create_by!(comment: "テストコメント#{i}") do |review|
+  Review.find_or_create_by!(comment: "リラックスできました#{i}") do |review|
     review.rating = rand(1..5)
     review.customer_id = test_customer_1.id
-    review.anonymous_name = "ゲスト#{i}"
-    review.admin_comment = "管理者のコメント#{i}"
+    review.anonymous_name = "山田タロウ#{i}"
+    review.admin_comment = "ご来店ありがとうございました！リラックスできて良かったです#{i}"
   end
 end
 
@@ -93,7 +93,7 @@ therapists_data.each do |data|
     therapist.experience_years = data[:experience_years]
     therapist.introduction = data[:introduction]
   end
-  
+
   # 画像のアタッチ（もし指定されていれば）
   if data[:image_path] && !therapist.image.attached?
     therapist.image.attach(io: File.open(data[:image_path]), filename: File.basename(data[:image_path]))

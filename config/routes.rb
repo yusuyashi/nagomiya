@@ -15,7 +15,7 @@ devise_for :admin, skip: [:registrations, :passwords], controllers: {
 
 root to: "public/homes#top"
 
-namespace :public do
+scope module: :public do
   get '/about', to: "homes#about", as: 'about'
   resources :therapists,only: [:index]
 
