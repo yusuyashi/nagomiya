@@ -15,18 +15,16 @@ devise_for :admin, skip: [:registrations, :passwords], controllers: {
 
 root to: "public/homes#top"
 
-scope module: :public do
+namespace :public do
+  # 他のルーティング設定
   get '/about', to: "homes#about", as: 'about'
-  resources :therapists,only: [:index]
-
+  resources :therapists, only: [:index]
   resources :customers, only: [:show]
   get '/information/edit', to: 'customers#edit', as: 'edit_customer'
   patch '/information/update', to: 'customers#update', as: 'update_customer'
   get '/confirmation', to: "customers#confirmation", as: 'customers_confirmation'
   patch '/withdrawal', to: 'customers#withdrawal', as: 'customers_withdrawal'
-
   resources :service_menus, only: [:index]
-
   resources :reservations, only: [:new, :create, :update] do
     member do
       get 'confirm'
@@ -34,12 +32,9 @@ scope module: :public do
       get 'thanks'
     end
   end
-
   resources :reservations_details, only: [:index, :show]
-  
-  resources :reviews,only: [:index, :new, :create]
-  
-end 
+  resources :reviews, only: [:index, :new, :create]
+end
 
 devise_scope :customer do
   post 'public/guest_sign_in', to: 'public/sessions#guest_sign_in'
