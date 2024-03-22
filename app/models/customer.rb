@@ -9,7 +9,13 @@ class Customer < ApplicationRecord
   has_many :reviews
 
   validate :validate_guest_information, if: -> { guest? && persisted? }
-
+  validates :last_name, presence: true, unless: :guest?
+  validates :first_name, presence: true, unless: :guest?
+  validates :last_name_kana, presence: true, unless: :guest?
+  validates :first_name_kana, presence: true, unless: :guest?
+  validates :postal_code, presence: true, unless: :guest?
+  validates :address, presence: true, unless: :guest?
+  validates :telephone_number, presence: true, unless: :guest?
 
   def self.guest
   customer = Customer.create!(
