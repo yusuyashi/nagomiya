@@ -32,6 +32,9 @@
     <div class="form-group">
       <%= f.label :visit_datetime, "来店日時" %>
       <%= f.datetime_select :visit_datetime, {}, class: 'form-control' %>
+      <% if @reservation.errors[:visit_datetime].any? %>
+        <p class="text-danger"><%= @reservation.errors[:visit_datetime].join(", ") %></p>
+      <% end %>
     </div>
 
     <div class="form-group">
