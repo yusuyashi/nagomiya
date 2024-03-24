@@ -24,10 +24,13 @@
         <td>店頭支払い</td>
       </tr>
       <tr>
-        <th>担当セラピスト名</th>
+      <th>担当セラピスト名</th>
+            <% if @reservation_detail.therapist %>
         <td><%= @reservation_detail.therapist.therapist_name %></td>
+            <% else %>
+        <td>セラピスト指定なし</td>
+            <% end %>
       </tr>
-      <tr>
         <th>郵便番号</th>
         <td><%= @reservation_detail.customer.postal_code %></td>
       </tr>
