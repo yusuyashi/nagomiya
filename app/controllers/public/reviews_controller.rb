@@ -1,6 +1,6 @@
 class Public::ReviewsController < ApplicationController
-  before_action :authenticate_customer!, only: [:new, :create]
-
+  before_action :authenticate_customer!
+  
   def index
     @reviews = Review.all.page(params[:page]).per(4)
   end
@@ -11,18 +11,21 @@ class Public::ReviewsController < ApplicationController
 
   def create
     @review = current_customer.reviews.new(review_params)
-  if @review.save
-    redirect_to public_reviews_path, notice: 'Review was successfully created.'
-  else
-    render :new
+    if @review.save
+      redirect_to public_reviews_path, notice: 'Review was successfully created.'
+    else
+      render :new
+    end
   end
-  end
-
-
+  
+  
   private
 
   def review_params
     params.require(:review).permit(:rating, :comment, :anonymous_name)
   end
   
+  
 end
+
+

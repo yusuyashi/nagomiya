@@ -9,8 +9,11 @@ class Public::ReservationsDetailsController < ApplicationController
 
   # GET /reservations_details/:id
   def show
+    unless @reservation_detail.customer == current_customer
+      flash[:error] = "You are not authorized to view this reservation detail."
+      redirect_to root_path
+    end
   end
-  
 
   private
 
@@ -18,3 +21,4 @@ class Public::ReservationsDetailsController < ApplicationController
     @reservation_detail = ReservationDetail.find(params[:id])
   end
 end
+
