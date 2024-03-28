@@ -2,7 +2,7 @@ class Public::ReviewsController < ApplicationController
   before_action :authenticate_customer!
   
   def index
-    @reviews = Review.all.page(params[:page]).per(4)
+    @reviews = Review.order(created_at: :desc).page(params[:page]).per(4)
   end
 
   def new

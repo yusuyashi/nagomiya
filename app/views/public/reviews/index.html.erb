@@ -18,6 +18,11 @@
       </div>
 
       <div class="row">
+        <div class="col-2 font-weight-bold">投稿日時:</div>
+        <div class="col-10"><%= review.created_at.strftime("%Y-%m-%d %H:%M:%S") %></div>
+      </div>
+
+      <div class="row">
         <div class="col-2 font-weight-bold">お店のコメント:</div>
         <div class="col-10"><%= review.admin_comment %></div>
       </div>

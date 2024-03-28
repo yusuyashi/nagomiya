@@ -4,7 +4,7 @@ class Admin::ReviewsController < ApplicationController
   before_action :set_review, only: [:edit, :update, :destroy]
 
   def index
-    @reviews = Review.all.page(params[:page]).per(4)
+    @reviews = Review.order(created_at: :desc).page(params[:page]).per(4)
   end
 
   def new
